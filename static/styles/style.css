@@ -1,0 +1,81 @@
+/* 全体のフォントとマージンを設定 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: black; /* 背景色を黒に設定 */
+    color: white; /* 文字の色を白に設定 */
+}
+
+/* フォームのラベルに関するスタイル */
+p {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* テキスト入力フィールドとボタンのスタイル */
+input[type="text"], button {
+    padding: 5px;
+    margin-right: 5px;
+}
+
+/* ボタンのスタイル */
+button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* グラフの画像に関するスタイル */
+img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+/* 財務情報のテーブルに関するスタイル */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 8px;
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+
+}
+
+.styled-table th {
+    background-color: #0000ff;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #4C444D;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #4C444D;
+}
+
+
+.news-table td {
+    padding: 8px;
+
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: white;
+
+}
+
+
+

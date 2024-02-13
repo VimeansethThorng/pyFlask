@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HELLO</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+
+    
+
+</head>
+<body>
+<!--    <p>{{ a }}</p> -->
+<p>銘柄名を入力してください</p>
+<form  method="post">
+    <input name="input_name" type="text"></input>
+    <button type="submit">送信</button>
+</form>
+<p>証券コードを入力してください</p>
+<form  method="post">
+    <input name="input_code" type="text"></input>
+    <button type="submit">送信</button>
+</form>
+
+
+<p style="text-align: center; font-size: 24px;">{{ stock_name_show }}</p>
+<p>グラフの周期を入力してください</p>
+<form  method="post">
+    <input name="start_input"  placeholder="YYYY-MM-dd" type="text"></input>
+    <input name="end_input"  placeholder="YYYY-MM-dd" type="text"></input>
+    <button type="submit">送信</button>
+
+</form>
+
+<form  method="post">
+    <button value="true" name="years10" type="submit">10年</button>
+    <button value="true" name="years5" type="submit">5年</button>
+    <button value="true" name="years1" type="submit">1年</button>
+    <button value="true" name="months6" type="submit">６か月</button>
+    <button value="true" name="months1" type="submit">1か月</button>
+    <button value="true" name="days5" type="submit">5日</button>
+    <button value="true" name="days1" type="submit">1日</button>
+    <button value="true" name="year_first" type="submit">年初来</button>
+</form>
+
+<p>{{ time_period }}</p>
+
+<!--<p>株価の推移</p>-->
+{% if graph_data is not none%}
+<img src="data:image/png;base64,{{graph_data}}"/>
+<!--<p>日経平均</p>-->
+<img src="data:image/png;base64,{{n225_graph}}"/>
+{% endif %}
+
+{% if table is not none%}
+<p>時価総額: {{market_cap}} (億円)</p>
+
+<p>財務情報(百万)</p>
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>{{ table.columns[0] }}</th>
+            <th>{{ table.columns[1] }}</th>
+            <th>{{ table.columns[2] }}</th>
+            <th>{{ table.columns[3] }}</th>
+            <th>{{ table.columns[4] }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in table.iterrows() %}
+        <tr>
+            <td>{{ row[1][0] }}</td>
+            <td>{{ row[1][1] }}</td>
+            <td>{{ row[1][2] }}</td>
+            <td>{{ row[1][3] }}</td>
+            <td>{{ row[1][4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>{{ table.columns[0] }}</th>
+            <th>{{ table.columns[5] }}</th>
+            <th>{{ table.columns[6] }}</th>
+            <th>{{ table.columns[7] }}</th>
+            <th>{{ table.columns[8] }}</th>
+            <th>{{ table.columns[9] }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in table.iterrows() %}
+        <tr>
+            <td>{{ row[1][0] }}</td>
+            <td>{{ row[1][5] }}</td>
+            <td>{{ row[1][6] }}</td>
+            <td>{{ row[1][7] }}</td>
+            <td>{{ row[1][8] }}</td>
+            <td>{{ row[1][9] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if cashflow_df is not none%}
+<p>キャッシュフロー(百万)</p>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>{{ cashflow_df.columns[0] }}</th>
+            <th>{{ cashflow_df.columns[1] }}</th>
+            <th>{{ cashflow_df.columns[2] }}</th>
+            <th>{{ cashflow_df.columns[3] }}</th>
+            <th>{{ cashflow_df.columns[4] }}</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in cashflow_df.iterrows() %}
+        <tr>
+            <td>{{ row[1][0] }}</td>
+            <td>{{ row[1][1] }}</td>
+            <td>{{ row[1][2] }}</td>
+            <td>{{ row[1][3] }}</td>
+            <td>{{ row[1][4] }}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if closing_schedule is not none%}
+<p>決算日</p>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>{{ closing_schedule.columns[0] }}</th>
+            <th>{{ closing_schedule.columns[1] }}</th>
+            <th>{{ closing_schedule.columns[2] }}</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in closing_schedule.iterrows() %}
+        <tr>
+            <td>{{ row[1][0] }}</td>
+            <td>{{ row[1][1] }}</td>
+            <td>{{ row[1][2] }}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if predict_data is not none%}
+<p>業績予想(百万)</p>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>{{ predict_data.columns[0] }}</th>
+            <th>{{ predict_data.columns[1] }}</th>
+            <th>{{ predict_data.columns[2] }}</th>
+            <th>{{ predict_data.columns[3] }}</th>
+            <th>{{ predict_data.columns[4] }}</th>
+            <th>{{ predict_data.columns[5] }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in predict_data.iterrows() %}
+        <tr>
+            <td>{{ row[1][0] }}</td>
+            <td>{{ row[1][1] }}</td>
+            <td>{{ row[1][2] }}</td>
+            <td>{{ row[1][3] }}</td>
+            <td>{{ row[1][4] }}</td>
+            <td>{{ row[1][5] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if content_list is not none%}
+<p>{{stock_name_show}}に関連したニュース</p>
+
+<table class="news-table">
+    <tbody>
+        {% for i in range(link_list|length) %}
+        <tr>
+            <td><a href="{{ link_list[i] }}" style="text-decoration:none; color:white;" >{{ content_list[i] }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+</body>
+</html>
